@@ -5,7 +5,7 @@ import org.example.model.Member;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
-
+//c
 public class Community {
     private CommunityRegistry registry;
 
