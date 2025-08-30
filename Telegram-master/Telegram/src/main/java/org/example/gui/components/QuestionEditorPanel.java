@@ -7,7 +7,7 @@ import java.util.List;
 
 import static org.example.config.AppConst.*; // MIN_OPTIONS / MAX_OPTIONS
 
-public final class QuestionEditorPanel extends JPanel {
+public class QuestionEditorPanel extends JPanel {
     private static final int START_OPTION_FIELDS = MIN_OPTIONS; // start with MIN_OPTIONS fields
     private static final int OUTER_H_GAP = 8;
     private static final int OUTER_V_GAP = 8;

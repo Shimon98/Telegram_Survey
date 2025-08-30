@@ -1,5 +1,5 @@
-// file: org/example/SurveyEngine.java
-package org.example;
+
+package org.example.engine;
 
 import org.example.community.Community;
 import org.example.community.CommunityBroadcaster;

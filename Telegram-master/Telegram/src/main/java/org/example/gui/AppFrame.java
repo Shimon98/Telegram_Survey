@@ -1,5 +1,6 @@
 package org.example.gui;
 
+import org.example.config.AppConst;
 import org.example.core.SurveySender;
 import org.example.gui.cards.*;
 import org.example.model.Survey;

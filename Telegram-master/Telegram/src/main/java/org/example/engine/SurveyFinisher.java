@@ -33,7 +33,7 @@ public class SurveyFinisher {
         finishNow(MSG_HEADER_TIMEOUT);
     }
 
-    
+
     private void finishNow(String header) {
         this.surveyCloser.closeNow();
         String summary = this.formatter.buildSummary(this.surveyState, this.surveyResult);
@@ -45,8 +45,15 @@ public class SurveyFinisher {
     }
 
 
-    
-    public String getLastHeader() { return this.lastHeader; }
-    public String getLastSummary() { return this.lastSummary; }
-    public String getLastChartPath() { return this.lastChartPath; }
+    public String getLastHeader() {
+        return this.lastHeader;
+    }
+
+    public String getLastSummary() {
+        return this.lastSummary;
+    }
+
+    public String getLastChartPath() {
+        return this.lastChartPath;
+    }
 }

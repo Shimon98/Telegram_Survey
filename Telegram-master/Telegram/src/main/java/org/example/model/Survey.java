@@ -39,7 +39,7 @@ public class Survey {
         return "Survey{" + id + ", '" + title + "', q=" + questions.size() + "}";
     }
 
-    
+
     public static Survey create(long id, String title, java.util.List<org.example.model.Question> questions) {
         return new Survey(id, title, questions);
     }

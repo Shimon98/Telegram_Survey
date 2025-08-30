@@ -21,7 +21,7 @@ public class Community {
         return registry.getMembers().stream().map(Member::getChatId).collect(Collectors.toCollection(HashSet::new));
     }
 
-    public java.util.Set<Long> getAllChetId() { 
-        return getAllChatIds(); 
+    public Set<Long> getAllChetId() {
+        return getAllChatIds();
     }
 }

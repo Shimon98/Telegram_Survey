@@ -13,8 +13,10 @@ public class PreviewCard extends JPanel {
     private static final int PREVIEW_ROWS = 20;
     private static final int PREVIEW_COLS = 60;
 
+
     private static final String LABEL_PREVIEW_TEXT = "Preview";
     private static final String PREVIEW_TITLE_PREFIX = "Title: ";
+    private static final String SEND_AFTER = "Send after (minutes):";
     private static final String QUESTION_PREFIX = "Q";
     private static final String OPTION_INDENT = "  ";
     private static final String OPTION_NUM_SUFFIX = ") ";
@@ -35,7 +37,7 @@ public class PreviewCard extends JPanel {
         area.setEditable(false);
         setBorder(BorderFactory.createEmptyBorder(PAD_ALL, PAD_ALL, PAD_ALL, PAD_ALL));
         JPanel top = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        top.add(new JLabel("Send after (minutes):"));
+        top.add(new JLabel(SEND_AFTER));
         top.add(delaySpinner);
         add(top, BorderLayout.NORTH);
 
