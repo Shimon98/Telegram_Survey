@@ -1,4 +1,4 @@
-package org.example.gui;
+package org.example.util;
 
 import org.example.model.Survey;
 

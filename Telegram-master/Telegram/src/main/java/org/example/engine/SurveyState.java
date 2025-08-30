@@ -1,4 +1,4 @@
-package org.example;
+package org.example.engine;
 import org.example.model.Survey;
 
 import java.util.HashMap;
@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class SurveyState {
+    private static final Integer START_SIZE=0;
+
     private boolean isSurveyOpen;
     private Survey currentSurvey;
     private int communitySizeAtStart;
@@ -18,11 +20,11 @@ public class SurveyState {
     public SurveyState() {
         this.isSurveyOpen = false;
         this.currentSurvey = null;
-        this.communitySizeAtStart = 0;
-        this.pollIdToQuestionIndex = new HashMap<String, Integer>();
-        this.messageIdByChatIdAndQuestion = new HashMap<Long, Map<Integer, Integer>>();
-        this.optionCountsByQuestionIndex = new HashMap<Integer, int[]>();
-        this.answeredUserIdsByQuestionIndex = new HashMap<Integer, Set<Long>>();
+        this.communitySizeAtStart = START_SIZE;
+        this.pollIdToQuestionIndex = new HashMap();
+        this.messageIdByChatIdAndQuestion = new HashMap();
+        this.optionCountsByQuestionIndex = new HashMap();
+        this.answeredUserIdsByQuestionIndex = new HashMap();
     }
 
     public void resetForNewSurvey(Survey survey, int communitySize) {
@@ -72,27 +74,5 @@ public class SurveyState {
         isSurveyOpen = surveyOpen;
     }
 
-    public void setCurrentSurvey(Survey currentSurvey) {
-        this.currentSurvey = currentSurvey;
-    }
 
-    public void setCommunitySizeAtStart(int communitySizeAtStart) {
-        this.communitySizeAtStart = communitySizeAtStart;
-    }
-
-    public void setPollIdToQuestionIndex(Map<String, Integer> pollIdToQuestionIndex) {
-        this.pollIdToQuestionIndex = pollIdToQuestionIndex;
-    }
-
-    public void setMessageIdByChatIdAndQuestion(Map<Long, Map<Integer, Integer>> messageIdByChatIdAndQuestion) {
-        this.messageIdByChatIdAndQuestion = messageIdByChatIdAndQuestion;
-    }
-
-    public void setOptionCountsByQuestionIndex(Map<Integer, int[]> optionCountsByQuestionIndex) {
-        this.optionCountsByQuestionIndex = optionCountsByQuestionIndex;
-    }
-
-    public void setAnsweredUserIdsByQuestionIndex(Map<Integer, Set<Long>> answeredUserIdsByQuestionIndex) {
-        this.answeredUserIdsByQuestionIndex = answeredUserIdsByQuestionIndex;
-    }
 }

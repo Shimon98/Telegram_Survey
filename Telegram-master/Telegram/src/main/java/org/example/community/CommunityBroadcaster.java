@@ -1,8 +1,7 @@
 package org.example.community;
 
 
-import org.example.TelegramPollEngine;
-import org.example.community.Community;
+import org.example.engine.TelegramPollEngine;
 
 import java.util.Set;
 

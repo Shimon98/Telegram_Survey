@@ -1,23 +1,24 @@
 package org.example.gui;
 
-import org.example.SurveyEngine;
-
-import javax.swing.*;
+import org.example.engine.SurveyEngine;
 import org.example.gui.cards.ProgressCard;
 import org.example.gui.cards.ResultsCard;
 
-public class SurveyWatcherThread extends Thread {
-    private static String NAME = "SurveyWatcherThread";
+public class SurveyWatcherThread extends ThreadFatherProject {
+    private static final String NAME = "SurveyWatcherThread";
+    private static final String MSG_SURVEY_ENDED = "Survey ended.";
+    private static final String MSG_SURVEY_FINISHED = "Survey finished.";
+    private static final String TITLE_SURVEY_FINISHED = "Survey finished";
+    private static final String MSG_WATCHER_ERROR = "Watcher error";
+    private static final String CARD_RESULTS = "RESULTS";
 
     private SurveyEngine engine;
     private ProgressCard progress;
     private ResultsCard results;
     private AppFrame frame;
 
-    public SurveyWatcherThread(SurveyEngine engine,
-                               ProgressCard progress,
-                               ResultsCard results,
-                               AppFrame frame) {
+    public SurveyWatcherThread(SurveyEngine engine, ProgressCard progress,
+                               ResultsCard results, AppFrame frame) {
         super(NAME);
         this.engine = engine;
         this.progress = progress;
@@ -30,39 +31,27 @@ public class SurveyWatcherThread extends Thread {
     public void run() {
         try {
             while (engine != null && engine.isSurveyOpen()) {
-                try { Thread.sleep(250); } catch (InterruptedException ie) { return; }
+                sleepMs(250);
+                if (Thread.currentThread().isInterrupted()) return;
             }
 
-            String header  = (engine == null ? "Survey ended." : engine.getLastHeader());
-            String summary = (engine == null ? "" : engine.getLastSummary());
+            final String header = (engine == null ? MSG_SURVEY_ENDED : engine.getLastHeader());
+            final String summary = (engine == null ? "" : engine.getLastSummary());
+            final String imgPath = (engine == null ? null : engine.getLastChartPath());
 
-            // קודם מציגים תוצאות ותמונה ומעבירים לכרטיס תוצאות
-            SwingUtilities.invokeLater(() -> {
-                progress.setStatus(header == null ? "Survey ended." : header);
+            ui(() -> {
+                setStatus(progress, header == null ? MSG_SURVEY_ENDED : header);
                 results.showResults(summary == null ? "" : summary);
-                results.showImage(engine == null ? null : engine.getLastChartPath());
-                frame.showCard("RESULTS");
+                results.showImage(imgPath);
+                frame.showCard(CARD_RESULTS);
 
-                // ואז (רשות) פותחים דיאלוג מידע — בלי Runnable
-                SwingUtilities.invokeLater(() -> {
-                    JOptionPane.showMessageDialog(
-                            frame,
-                            header == null ? "Survey finished." : header,
-                            "Survey finished",
-                            JOptionPane.INFORMATION_MESSAGE
-                    );
-                });
+                info(frame,
+                        header == null ? MSG_SURVEY_FINISHED : header,
+                        TITLE_SURVEY_FINISHED);
             });
 
         } catch (Exception ex) {
-            SwingUtilities.invokeLater(() ->
-                    JOptionPane.showMessageDialog(
-                            frame,
-                            ex.getMessage(),
-                            "Watcher error",
-                            JOptionPane.ERROR_MESSAGE
-                    )
-            );
+            error(frame, ex.getMessage(), MSG_WATCHER_ERROR);
         }
     }
 }

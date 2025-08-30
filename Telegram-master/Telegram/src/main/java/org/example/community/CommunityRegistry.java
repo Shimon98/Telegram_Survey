@@ -7,7 +7,6 @@ import org.example.util.JoinTrigger;
 import java.util.HashSet;
 import java.util.Set;
 
-
 public class CommunityRegistry {
     private static final String NULL_NAME = "Anonymous ";
 
@@ -20,10 +19,16 @@ public class CommunityRegistry {
     }
 
     public synchronized JoinOutcome registerIfJoinTrigger(long chatId, String nameOrNull, String text) {
-        if (!JoinTrigger.matches(text)) {
+        if (text == null || text.isBlank()) {
             return JoinOutcome.IGNORED;
         }
-        Member member = new Member(chatId, nameOrNull == null || nameOrNull.isBlank() ? NULL_NAME + (anonCounter++) : nameOrNull);
+        if (!JoinTrigger.matches(text)) {
+            return JoinOutcome.NEEDS_TRIGGER;
+        }
+        Member member = new Member(
+                chatId,
+                (nameOrNull == null || nameOrNull.isBlank()) ? (NULL_NAME + (anonCounter++)) : nameOrNull
+        );
         boolean added = members.add(member);
         return added ? JoinOutcome.ADDED_NEW_MEMBER : JoinOutcome.ALREADY_MEMBER;
     }

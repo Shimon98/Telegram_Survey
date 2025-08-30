@@ -1,8 +1,5 @@
 package org.example.engine;
 
-import org.example.PollSendResult;
-import org.example.SurveyState;
-
 import java.util.HashMap;
 import java.util.Map;
 

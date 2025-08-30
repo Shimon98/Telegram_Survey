@@ -4,12 +4,14 @@ import org.example.core.SurveySender;
 import org.example.gui.cards.ProgressCard;
 import org.example.model.Survey;
 
-import javax.swing.*;
-
-public class SendSurveyThread extends Thread {
+public class SendSurveyThread extends ThreadFatherProject {
     private static final String NAME = "SendSurveyThread";
-    private  SurveySender sender;
-    private  Survey survey;
+    private static final String MSG_SENDING = "Sending...";
+    private static final String MSG_SENT_WAIT = "Sent. Waiting for answers...";
+    private static final String TITLE_SEND_FAILED = "Send failed";
+
+    private SurveySender sender;
+    private Survey survey;
     private ProgressCard progress;
 
     public SendSurveyThread(SurveySender sender, Survey survey, ProgressCard progress) {
@@ -20,14 +22,14 @@ public class SendSurveyThread extends Thread {
         setDaemon(true);
     }
 
-    @Override public void run() {
+    @Override
+    public void run() {
         try {
-            SwingUtilities.invokeLater(() -> progress.setStatus("Sending..."));
+            setStatus(progress, MSG_SENDING);
             sender.sendSurvey(survey);
-            SwingUtilities.invokeLater(() -> progress.setStatus("Sent. Waiting for answers..."));
+            setStatus(progress, MSG_SENT_WAIT);
         } catch (Exception ex) {
-            SwingUtilities.invokeLater(() ->
-                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Send failed", JOptionPane.ERROR_MESSAGE));
+            error(null, ex.getMessage(), TITLE_SEND_FAILED);
         }
     }
 }

@@ -1,8 +1,5 @@
 package org.example.engine;
 
-import org.example.SurveyState;
-import org.example.TelegramPollEngine;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,10 +17,9 @@ public class SurveyCloser {
 
     public void closeNow() {
         Map<Long, Map<Integer, Integer>> snapshot;
-
         synchronized (this.locks.getStateLock()) {
             if (!this.surveyState.isSurveyOpen()) return;
-            snapshot = new HashMap<Long, Map<Integer, Integer>>(this.surveyState.getMessageIdByChatIdAndQuestion());
+            snapshot = new HashMap(this.surveyState.getMessageIdByChatIdAndQuestion());
             this.surveyState.setSurveyOpen(false);
         }
 

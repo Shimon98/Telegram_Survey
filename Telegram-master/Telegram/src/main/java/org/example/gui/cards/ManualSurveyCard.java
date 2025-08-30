@@ -1,6 +1,6 @@
 package org.example.gui.cards;
 
-import org.example.gui.SurveyBuiltListener;
+import org.example.util.SurveyBuiltListener;
 import org.example.gui.components.QuestionEditorPanel;
 import org.example.model.Question;
 import org.example.model.Survey;

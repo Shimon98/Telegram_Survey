@@ -34,7 +34,6 @@ public final class QuestionEditorPanel extends JPanel {
 
     public QuestionEditorPanel(int index) {
         super(new BorderLayout(OUTER_H_GAP, OUTER_V_GAP));
-
         this.questionIndex = index;
         this.questionField = new JTextField();
         this.optionsPanel = new JPanel(new GridLayout(GRID_ROWS, GRID_COLS_SINGLE, INNER_GAP, INNER_GAP));
@@ -125,7 +124,4 @@ public final class QuestionEditorPanel extends JPanel {
         return out;
     }
 
-    public int getQuestionIndex() {
-        return questionIndex;
-    }
 }

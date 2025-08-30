@@ -1,14 +1,18 @@
 package org.example.gui;
 
-import org.example.SurveyEngine;
+import org.example.engine.SurveyEngine;
 import org.example.core.SurveySender;
 import org.example.gui.cards.ProgressCard;
 import org.example.gui.cards.ResultsCard;
 
-import javax.swing.*;
-
-public class CloseSurveyThread extends Thread {
+public class CloseSurveyThread extends ThreadFatherProject {
     private static String NAME = "CloseSurveyThread";
+    private static String MSG_CLOSING = "Closing...";
+    private static String MSG_SURVEY_CLOSED = "Survey closed.";
+    private static String MSG_SURVEY_FINISHED = "Survey finished.";
+    private static String TITLE_SURVEY_FINISHED = "Survey finished";
+    private static String TITLE_CLOSE_FAILED = "Close failed";
+    private static String CARD_RESULTS = "RESULTS";
 
     private SurveySender sender;
     private long surveyId;
@@ -33,37 +37,26 @@ public class CloseSurveyThread extends Thread {
     @Override
     public void run() {
         try {
-            SwingUtilities.invokeLater(() -> progress.setStatus("Closing..."));
+            setStatus(progress, MSG_CLOSING);
             sender.closeSurvey(surveyId);
-            try { Thread.sleep(150); } catch (InterruptedException ignored) {}
-            String header = engine.getLastHeader();
-            String summary = engine.getLastSummary();
+            sleepMs(150);
 
-            SwingUtilities.invokeLater(() -> {
-                progress.setStatus(header == null ? "Survey closed." : header);
+            final String header = (engine == null ? MSG_SURVEY_CLOSED : engine.getLastHeader());
+            final String summary = (engine == null ? "" : engine.getLastSummary());
+            final String img = (engine == null ? null : engine.getLastChartPath());
+
+            ui(() -> {
+                setStatus(progress, header == null ? MSG_SURVEY_CLOSED : header);
                 results.showResults(summary == null ? "" : summary);
-                results.showImage(engine == null ? null : engine.getLastChartPath());
-                frame.showCard("RESULTS");
-
-                SwingUtilities.invokeLater(() -> {
-                    JOptionPane.showMessageDialog(
-                            frame,
-                            header == null ? "Survey finished." : header,
-                            "Survey finished",
-                            JOptionPane.INFORMATION_MESSAGE
-                    );
-                });
+                results.showImage(img);
+                frame.showCard(CARD_RESULTS);
+                info(frame,
+                        header == null ? MSG_SURVEY_FINISHED : header,
+                        TITLE_SURVEY_FINISHED);
             });
 
         } catch (Exception ex) {
-            SwingUtilities.invokeLater(() ->
-                    JOptionPane.showMessageDialog(
-                            frame,
-                            ex.getMessage(),
-                            "Close failed",
-                            JOptionPane.ERROR_MESSAGE
-                    )
-            );
+            error(frame, ex.getMessage(), TITLE_CLOSE_FAILED);
         }
     }
 }

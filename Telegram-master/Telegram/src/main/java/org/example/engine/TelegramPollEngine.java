@@ -1,4 +1,4 @@
-package org.example;
+package org.example.engine;
 
 import org.example.bot.TelegramGateway;
 import org.telegram.telegrambots.meta.api.methods.polls.SendPoll;
@@ -35,7 +35,7 @@ public class TelegramPollEngine {
 
     public void stopPollByMessageId(long chatId, int messageId) {
         try {
-            Poll p = this.telegramGateway.stopPoll(new StopPoll(String.valueOf(chatId), messageId));
+            Poll poll = this.telegramGateway.stopPoll(new StopPoll(String.valueOf(chatId), messageId));
         } catch (TelegramApiException e) {
 
         }

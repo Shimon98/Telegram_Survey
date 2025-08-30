@@ -1,4 +1,4 @@
-package org.example;
+package org.example.engine;
 
 public class PollSendResult {
     private int messageId;
@@ -12,16 +12,7 @@ public class PollSendResult {
     public String getPollId() {
         return pollId;
     }
-
-    public void setPollId(String pollId) {
-        this.pollId = pollId;
-    }
-
     public int getMessageId() {
         return messageId;
-    }
-
-    public void setMessageId(int messageId) {
-        this.messageId = messageId;
     }
 }

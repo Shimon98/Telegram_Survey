@@ -1,6 +1,6 @@
 package org.example.core;
 
-import org.example.SurveyEngine;
+import org.example.engine.SurveyEngine;
 import org.example.model.Survey;
 
 public class EngineSurveySender implements SurveySender {

@@ -2,10 +2,10 @@ package org.example.gui;
 
 import org.example.gui.cards.ProgressCard;
 
-import javax.swing.*;
-
-public class CountdownThread extends Thread {
+public class CountdownThread extends ThreadFatherProject {
     private static final String NAME = "CountdownThread";
+    private static final String MSG_SENDING_IN = "Sending in ";
+    private static final String MSG_TIME_LEFT = "Time left ";
 
     private ProgressCard progress;
     private boolean preSend;
@@ -19,22 +19,18 @@ public class CountdownThread extends Thread {
         setDaemon(true);
     }
 
-    @Override public void run() {
+    @Override
+    public void run() {
         while (seconds >= 0) {
-            final int s = seconds;
-            SwingUtilities.invokeLater(() -> {
-                String mm = String.format("%02d", s / 60);
-                String ss = String.format("%02d", s % 60);
-                if (preSend) progress.setSendDelayCountdown("Sending in " + mm + ":" + ss);
-                else         progress.setTimeLeft("Time left " + mm + ":" + ss);
-            });
+            final String t = mmss(seconds);
+            if (preSend) setDelayText(progress, MSG_SENDING_IN + t);
+            else setTimeLeftText(progress, MSG_TIME_LEFT + t);
+
             if (seconds == 0) break;
-            try { Thread.sleep(1000); } catch (InterruptedException ignored) {}
+            sleepMs(1000);
             seconds--;
         }
-        SwingUtilities.invokeLater(() -> {
-            if (preSend) progress.setSendDelayCountdown("");
-            else         progress.setTimeLeft("");
-        });
+        if (preSend) clearDelay(progress);
+        else clearTimeLeft(progress);
     }
 }

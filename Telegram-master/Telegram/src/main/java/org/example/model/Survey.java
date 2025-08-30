@@ -15,7 +15,7 @@ public class Survey {
     private String title;
     private List<Question> questions;
 
-    public Survey(long id, String title, List<Question> questions) {
+    private Survey(long id, String title, List<Question> questions) {
         this.id = id;
         this.title = Validate.requireText(title, ERR_TITLE_LABEL);
         Validate.requireSizeBetween(questions, AppConst.MIN_QUESTIONS, AppConst.MAX_QUESTIONS, ERR_QUESTIONS_LABEL);

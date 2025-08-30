@@ -1,19 +1,15 @@
-package org.example;
+package org.example.engine;
 
 
-import org.example.SurveyResult;
-import org.example.SurveyState;
 import org.example.community.CommunityBroadcaster;
-import org.example.engine.SurveyCloser;
+import org.example.gui.components.ChartImageBuilder;
 
 public class SurveyFinisher {
+    private static final String MSG_HEADER_ALL = "Survey ended: everyone answered.";
+    private static final String MSG_HEADER_TIMEOUT = "Survey ended: time expired.";
     private String lastHeader;
     private String lastSummary;
     private String lastChartPath;
-
-    private static final String MSG_HEADER_ALL = "Survey ended: everyone answered.";
-    private static final String MSG_HEADER_TIMEOUT = "Survey ended: time expired.";
-
     private SurveyCloser surveyCloser;
     private SurveyState surveyState;
     private SurveyResult surveyResult;
@@ -43,7 +39,7 @@ public class SurveyFinisher {
         String summary = this.formatter.buildSummary(this.surveyState, this.surveyResult);
         this.lastHeader = header;
         this.lastSummary = summary;
-        this.lastChartPath = org.example.gui.ChartImageBuilder.buildCombinedImage(this.surveyState, this.surveyResult);
+        this.lastChartPath = ChartImageBuilder.buildCombinedImage(this.surveyState, this.surveyResult);
         this.broadcaster.broadcast(header);
         System.out.println(header);
     }

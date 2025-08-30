@@ -1,7 +1,6 @@
 package org.example.engine;
 
-import org.example.SurveyResult;
-import org.example.SurveyState;
+import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.api.objects.polls.PollAnswer;
 
 import java.util.List;

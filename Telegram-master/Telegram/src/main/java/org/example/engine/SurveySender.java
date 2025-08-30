@@ -3,8 +3,6 @@ package org.example.engine;
 import org.example.community.Community;
 import org.example.model.Question;
 import org.example.model.Survey;
-import org.example.PollSendResult;
-import org.example.TelegramPollEngine;
 
 import java.util.List;
 import java.util.Set;
@@ -18,8 +16,7 @@ public class SurveySender {
     private OptionTextBuilder optionTextBuilder;
     private MessageAndPollRegistry registry;
 
-    public SurveySender(Community community,
-                        TelegramPollEngine telegramPollEngine,
+    public SurveySender(Community community, TelegramPollEngine telegramPollEngine,
                         OptionTextBuilder optionTextBuilder,
                         MessageAndPollRegistry registry) {
         this.community = community;

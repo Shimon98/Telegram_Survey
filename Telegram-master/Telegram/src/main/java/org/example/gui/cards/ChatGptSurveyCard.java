@@ -2,7 +2,7 @@ package org.example.gui.cards;
 
 import org.example.ai.AiClient;
 import org.example.ai.AiSurveyParser;
-import org.example.gui.SurveyBuiltListener;
+import org.example.util.SurveyBuiltListener;
 import org.example.model.Question;
 import org.example.model.Survey;
 import org.example.util.Validate;
